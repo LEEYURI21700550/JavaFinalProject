@@ -20,7 +20,7 @@ import edu.handong.csee.customized.LinkedList;
 public class JavaFinalProject  {
 	
 	private String inputPath, outputPath;
-	boolean help;
+	private boolean help;
 	private HashMap<String, LinkedList<String>> zip1 = new HashMap<String, LinkedList<String>>();
 	private HashMap<String,LinkedList<String>> zip2 = new HashMap<String, LinkedList<String>>();
 	 

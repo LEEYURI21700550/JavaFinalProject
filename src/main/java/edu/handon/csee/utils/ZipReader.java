@@ -20,7 +20,7 @@ public class ZipReader{
 
 	private HashMap<String, LinkedList<String>> zip1 = new HashMap<String, LinkedList<String>>();
 	private HashMap<String, LinkedList<String>> zip2 = new HashMap<String, LinkedList<String>>();
-	
+	private ArrayList<String> errorFile = new ArrayList();
 	
 	public HashMap<String, LinkedList<String>> getZip1() {
 		//Map<String, ArrayList<ArrayList<String>>> sortedZip1 = new TreeMap<String, ArrayList<ArrayList<String>>>(zip1);
@@ -46,7 +46,6 @@ public class ZipReader{
 			
 			for(File fileName : fileList) {
 				String file = fileName.getName();
-				//System.out.println(file);
 				
 				int pos = file.lastIndexOf(".");
 				String studentId = file.substring(0, pos);
@@ -60,21 +59,28 @@ public class ZipReader{
 					InputStream stream = zipFile.getInputStream(entry);
 					
 					if(entry.getName().contains("요약문")) {
-						System.out.println(entry.getName());
+					
 						ExcelReader myReader = new ExcelReader();
-						zip1.put(studentId, myReader.getData(stream));
+						zip1.put(studentId, myReader.getData(stream, file, errorFile));
 					} else if(entry.getName().contains("표")) {
-						System.out.println(entry.getName());
-						ExcelReader myReader = new ExcelReader();
-						zip2.put(studentId,myReader.getData2(stream));
-					} else {
-						throw new ErrorException(file);
-					}
-				
 						
+						ExcelReader myReader = new ExcelReader();
+						zip2.put(studentId,myReader.getData2(stream, file,errorFile ));
+					} else {
+						if(!errorFile.contains(file))
+							errorFile.add(file);
+						else {
+							continue;
+						}
 					}
 				
-			}
+					}
+				
+				}
+
+		if(!errorFile.isEmpty()) {
+			throw new ErrorException(errorFile);
+		}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -19,10 +19,10 @@ import edu.handong.csee.customized.LinkedList;
 
 
 public class ExcelReader {
-	public LinkedList<String> getData(InputStream is) {
+	
+	
+	public LinkedList<String> getData(InputStream is, String zipName, ArrayList<String> errorFile) {
 		LinkedList<String> values = new LinkedList<String>();
-		
-		
 		
 		try (InputStream inp = is) {
 		
@@ -30,13 +30,11 @@ public class ExcelReader {
 		        Sheet sheet = wb.getSheetAt(0);
 		        
 		        int rows = sheet.getPhysicalNumberOfRows();
-		        //System.out.println(rows);
+		  
 		        
 		        for(int row = 1; row<rows; row++) {
 		        	Row currentRow = sheet.getRow(row);
 		        	
-		        	
-		        	//int cells = currentRow.getPhysicalNumberOfCells();
 		        	String data = "";
 		        	
 		        	for(int cell = 0; cell < 7; cell++) {
@@ -52,7 +50,13 @@ public class ExcelReader {
 	        				data += currentCell.getStringCellValue()+"#";
 	        			} else if(currentCell.getCellType() == CellType.BLANK) {
 	        				data+=""+"#";
-	        			}
+	        			} else {
+							if(!errorFile.contains(zipName))
+								errorFile.add(zipName);
+							else {
+								continue;
+							}
+						}
 	                    
 		        		
 		        	
@@ -76,7 +80,7 @@ public class ExcelReader {
 	}
 	
 	
-	public LinkedList<String> getData2(InputStream is) {
+	public LinkedList<String> getData2(InputStream is, String zipName, ArrayList<String> errorFile) {
 		LinkedList<String> values = new LinkedList<String>();
 		
 		
@@ -86,16 +90,15 @@ public class ExcelReader {
 	
 		        Workbook wb = WorkbookFactory.create(inp);
 		        Sheet sheet = wb.getSheetAt(0);
-		        CellStyle cs = wb.createCellStyle();
-		        cs.setWrapText(true);
+
 		
 		        int rows = sheet.getPhysicalNumberOfRows();
-		        System.out.println(rows);
+
 		        for(int row = 2; row<rows; row++) {
 		        	Row currentRow = sheet.getRow(row);
 		    
 		        	
-		        	int cells = currentRow.getPhysicalNumberOfCells();
+		        	
 		        	String data = "";
 		        	
 		        	for(int cell = 0; cell < 5; cell++) {
@@ -113,12 +116,18 @@ public class ExcelReader {
 		        				data += currentCell.getStringCellValue()+"#";
 		        			} else if(currentCell.getCellType() == CellType.BLANK) {
 		        				data+=""+"#";
-		        			}
+		        			} else {
+								if(!errorFile.contains(zipName))
+									errorFile.add(zipName);
+								else {
+									continue;
+								}
+							}
 		                    
 		        			
 		        			
 		        	}
-		        	System.out.println(data);
+		        	
 		        	values.addANodeToTail(data);
 		        }
 		        

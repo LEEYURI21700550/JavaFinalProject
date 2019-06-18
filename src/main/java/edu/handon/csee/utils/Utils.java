@@ -31,8 +31,8 @@ public class Utils {
 		String path2 = path + 2 + pa;
 		
 		
-		File file1 = new File("./"+path1);
-		File file2 = new File("./"+path2);
+		File file1 = new File(path1);
+		File file2 = new File(path2);
 		file1.getParentFile().mkdirs();
 		file2.getParentFile().mkdirs();
 		

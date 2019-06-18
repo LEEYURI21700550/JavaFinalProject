@@ -4,20 +4,22 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
 public class ErrorException extends Exception{
-	String fileName;
+	ArrayList<String> fileName;
 	public ErrorException()
 	{
 		super("Error exist");
 	}
-	public ErrorException(String file)
+	public ErrorException(ArrayList<String> filelist)
 	{
 		super("Error exist");
-		fileName = file;
+		fileName = filelist;
 		
 	}
 	
@@ -30,15 +32,17 @@ public class ErrorException extends Exception{
 			
 		}
 	
-		
-		BufferedWriter buffer1 = new BufferedWriter(new FileWriter("error.csv"));
-		
-	
-			CSVPrinter csv1 = new CSVPrinter(buffer1,CSVFormat.DEFAULT);
-			csv1.printRecord(fileName);
+			PrintWriter outputStream= null;
+			outputStream = new PrintWriter("error.csv");	
+			for(String file : fileName)
+			{
+				outputStream.println(file);
+			}
+
+
+			outputStream.close();
 			
-			csv1.flush();
-			csv1.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
