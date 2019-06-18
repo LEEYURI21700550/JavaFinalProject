@@ -17,18 +17,26 @@ import edu.handon.csee.utils.Utils;
 import edu.handon.csee.utils.ZipReader;
 import edu.handong.csee.customized.LinkedList;
 
-public class JavaFinalProject  {
+public class JavaFinalProject implements Runnable  {
 	
 	private String inputPath, outputPath;
 	private boolean help;
 	private HashMap<String, LinkedList<String>> zip1 = new HashMap<String, LinkedList<String>>();
 	private HashMap<String,LinkedList<String>> zip2 = new HashMap<String, LinkedList<String>>();
+	private String[] arg;
 	 
-	 
-	public void run(String[] args) throws IOException {
+	
+	
+	public void setArg(String[] args) {
+		arg = args;
+	}
+	
+	
+	@Override
+	public void run() {
 		Options options = createOptions();
 
-		if(parseOptions(options, args)) {
+		if(parseOptions(options, arg)) {
 			if (help){
 				printHelp(options);
 
@@ -44,11 +52,17 @@ public class JavaFinalProject  {
 		Map<String, LinkedList<String>> sortedZip1 = new TreeMap<String, LinkedList<String>>(zip1);
 		Map<String, LinkedList<String>> sortedZip2 = new TreeMap<String, LinkedList<String>>(zip2);
 
-		Utils.writeAFile(sortedZip1,sortedZip2,outputPath);
+		try {
+			Utils.writeAFile(sortedZip1,sortedZip2,outputPath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
-}
-
+		
+	}
+	
 	private void printHelp(Options options) {
 		HelpFormatter formatter = new HelpFormatter();
 		String header = "Java Final Project";
@@ -98,7 +112,11 @@ public class JavaFinalProject  {
 		return options;
 	}
 
-	
+
+
+
+
+
 
 	
 }

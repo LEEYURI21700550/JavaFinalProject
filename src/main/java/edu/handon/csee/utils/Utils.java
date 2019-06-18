@@ -59,7 +59,8 @@ public class Utils {
 				}
 			}
 		
-	
+		csv1.flush();
+		csv1.close();
 		
 		for(String key: sortedZip2.keySet()) {
 			for(String a : sortedZip2.get(key).toArrayList()) {
@@ -69,9 +70,6 @@ public class Utils {
 				}
 			}
 		
-		
-		csv1.flush();
-		csv1.close();
 		
 		csv2.flush();
 		csv2.close();

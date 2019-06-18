@@ -21,7 +21,7 @@ public class ZipReader{
 	private HashMap<String, LinkedList<String>> zip1 = new HashMap<String, LinkedList<String>>();
 	private HashMap<String, LinkedList<String>> zip2 = new HashMap<String, LinkedList<String>>();
 	private ArrayList<String> errorFile = new ArrayList();
-	
+
 	public HashMap<String, LinkedList<String>> getZip1() {
 		//Map<String, ArrayList<ArrayList<String>>> sortedZip1 = new TreeMap<String, ArrayList<ArrayList<String>>>(zip1);
 		return zip1;
@@ -92,5 +92,6 @@ public class ZipReader{
 		
 	}
 
+	
 
 }
