@@ -18,16 +18,16 @@ import edu.handong.csee.customized.LinkedList;
 
 public class ZipReader {
 
-	private HashMap<String,ArrayList<ArrayList<String>>> zip1 = new HashMap<String,ArrayList<ArrayList<String>>>();
-	private HashMap<String,ArrayList<ArrayList<String>>> zip2 = new HashMap<String,ArrayList<ArrayList<String>>>();
+	private HashMap<String, ArrayList<String>> zip1 = new HashMap<String, ArrayList<String>>();
+	private HashMap<String, ArrayList<String>> zip2 = new HashMap<String, ArrayList<String>>();
 	
 	
-	public HashMap<String, ArrayList<ArrayList<String>>> getZip1() {
+	public HashMap<String, ArrayList<String>> getZip1() {
 		//Map<String, ArrayList<ArrayList<String>>> sortedZip1 = new TreeMap<String, ArrayList<ArrayList<String>>>(zip1);
 		return zip1;
 	}
 
-	public HashMap<String, ArrayList<ArrayList<String>>> getZip2() {
+	public HashMap<String, ArrayList<String>> getZip2() {
 		return zip2;
 	}
 
@@ -61,7 +61,7 @@ public class ZipReader {
 					} else if(entry.getName().contains("표")) {
 						System.out.println(entry.getName());
 						ExcelReader myReader = new ExcelReader();
-						zip2.put(studentId, myReader.getData(stream));
+						zip2.put(studentId, myReader.getData2(stream));
 					}
 				}
 			}

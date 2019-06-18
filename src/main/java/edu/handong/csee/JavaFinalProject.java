@@ -1,5 +1,6 @@
 package edu.handong.csee;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,11 +20,11 @@ public class JavaFinalProject {
 	
 	private String inputPath, outputPath;
 	boolean help;
-	private HashMap<String,ArrayList<ArrayList<String>>> zip1 = new HashMap<String,ArrayList<ArrayList<String>>>();
-	private HashMap<String,ArrayList<ArrayList<String>>> zip2 = new HashMap<String,ArrayList<ArrayList<String>>>();
+	private HashMap<String, ArrayList<String>> zip1 = new HashMap<String, ArrayList<String>>();
+	private HashMap<String,ArrayList<String>> zip2 = new HashMap<String, ArrayList<String>>();
 	 
 	 
-	public void run(String[] args) {
+	public void run(String[] args) throws IOException {
 		Options options = createOptions();
 
 		if(parseOptions(options, args)) {
@@ -39,8 +40,8 @@ public class JavaFinalProject {
 		
 		zip1 = zipReader.getZip1();
 		zip2 = zipReader.getZip2();
-		Map<String, ArrayList<ArrayList<String>>> sortedZip1 = new TreeMap<String, ArrayList<ArrayList<String>>>(zip1);
-		Map<String, ArrayList<ArrayList<String>>> sortedZip2 = new TreeMap<String, ArrayList<ArrayList<String>>>(zip2);
+		Map<String, ArrayList<String>> sortedZip1 = new TreeMap<String, ArrayList<String>>(zip1);
+		Map<String, ArrayList<String>> sortedZip2 = new TreeMap<String, ArrayList<String>>(zip2);
 		/*
 		for(String key: sortedZip1.keySet()) {
 			System.out.println(key);
@@ -54,14 +55,10 @@ public class JavaFinalProject {
 		*/
 		
 		
-		int pos = outputPath.lastIndexOf(".");
-		String path = outputPath.substring(0, pos);
-		String pa = outputPath.substring(pos);
-		String path1 = path + 1 + pa;
-		String path2 = path + 2 + pa;
 		
-		Utils.writeAFile(sortedZip1, path1);
-		Utils.writeAFile(sortedZip2, path2);
+		
+		Utils.writeAFile(sortedZip1,sortedZip2,outputPath);
+		//Utils.writeAFile(sortedZip2, outputPath);
 		
 	}
 }
