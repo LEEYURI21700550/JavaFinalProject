@@ -12,36 +12,41 @@ import java.util.TreeMap;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
 
-
+import edu.handong.csee.customized.ErrorException;
 import edu.handong.csee.customized.LinkedList;
 
 
-public class ZipReader {
+public class ZipReader{
 
-	private HashMap<String, ArrayList<String>> zip1 = new HashMap<String, ArrayList<String>>();
-	private HashMap<String, ArrayList<String>> zip2 = new HashMap<String, ArrayList<String>>();
+	private HashMap<String, LinkedList<String>> zip1 = new HashMap<String, LinkedList<String>>();
+	private HashMap<String, LinkedList<String>> zip2 = new HashMap<String, LinkedList<String>>();
 	
 	
-	public HashMap<String, ArrayList<String>> getZip1() {
+	public HashMap<String, LinkedList<String>> getZip1() {
 		//Map<String, ArrayList<ArrayList<String>>> sortedZip1 = new TreeMap<String, ArrayList<ArrayList<String>>>(zip1);
 		return zip1;
 	}
 
-	public HashMap<String, ArrayList<String>> getZip2() {
+	public HashMap<String, LinkedList<String>> getZip2() {
 		return zip2;
 	}
 
-
+	
+	
+	
 	public void readFileInZip(String path) {
 		ZipFile zipFile;
 		File dirFile = new File(path);
 		
 		File []fileList = dirFile.listFiles();
 		
+		
+		
 		try {
 			
 			for(File fileName : fileList) {
 				String file = fileName.getName();
+				//System.out.println(file);
 				
 				int pos = file.lastIndexOf(".");
 				String studentId = file.substring(0, pos);
@@ -61,13 +66,25 @@ public class ZipReader {
 					} else if(entry.getName().contains("표")) {
 						System.out.println(entry.getName());
 						ExcelReader myReader = new ExcelReader();
-						zip2.put(studentId, myReader.getData2(stream));
+						zip2.put(studentId,myReader.getData2(stream));
+					} else {
+						throw new ErrorException(file);
 					}
-				}
+				
+						
+					}
+				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ErrorException e) {
+			e.set();
 		}
+			
+			
+		
 	}
+
+
 }

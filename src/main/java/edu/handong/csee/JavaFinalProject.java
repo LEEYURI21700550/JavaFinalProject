@@ -15,13 +15,14 @@ import org.apache.commons.cli.Options;
 
 import edu.handon.csee.utils.Utils;
 import edu.handon.csee.utils.ZipReader;
+import edu.handong.csee.customized.LinkedList;
 
-public class JavaFinalProject {
+public class JavaFinalProject  {
 	
 	private String inputPath, outputPath;
 	boolean help;
-	private HashMap<String, ArrayList<String>> zip1 = new HashMap<String, ArrayList<String>>();
-	private HashMap<String,ArrayList<String>> zip2 = new HashMap<String, ArrayList<String>>();
+	private HashMap<String, LinkedList<String>> zip1 = new HashMap<String, LinkedList<String>>();
+	private HashMap<String,LinkedList<String>> zip2 = new HashMap<String, LinkedList<String>>();
 	 
 	 
 	public void run(String[] args) throws IOException {
@@ -40,25 +41,10 @@ public class JavaFinalProject {
 		
 		zip1 = zipReader.getZip1();
 		zip2 = zipReader.getZip2();
-		Map<String, ArrayList<String>> sortedZip1 = new TreeMap<String, ArrayList<String>>(zip1);
-		Map<String, ArrayList<String>> sortedZip2 = new TreeMap<String, ArrayList<String>>(zip2);
-		/*
-		for(String key: sortedZip1.keySet()) {
-			System.out.println(key);
-			for(ArrayList<String> a : sortedZip1.get(key)) {
-				for(String c: a ) {
-					System.out.println(c);
-				}
-			}
-		
-		}
-		*/
-		
-		
-		
-		
+		Map<String, LinkedList<String>> sortedZip1 = new TreeMap<String, LinkedList<String>>(zip1);
+		Map<String, LinkedList<String>> sortedZip2 = new TreeMap<String, LinkedList<String>>(zip2);
+
 		Utils.writeAFile(sortedZip1,sortedZip2,outputPath);
-		//Utils.writeAFile(sortedZip2, outputPath);
 		
 	}
 }
@@ -111,6 +97,8 @@ public class JavaFinalProject {
 
 		return options;
 	}
+
+	
 
 	
 }
